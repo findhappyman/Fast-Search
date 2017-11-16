@@ -16,8 +16,8 @@ def get_magnet(html):
     num = 1
     content = []
     result = re.findall(p,html)
-	for num, c in enumerate(result):
-		content.append('%d.\t%s\n' % (num + 1, c))
+    for num, c in enumerate(result):
+	content.append('%d.\t%s\n' % (num + 1, c))
     g.textbox(msg="您查询的关键词对应的磁链如下:", text=content)
 
 if __name__ == '__main__':
