@@ -5,6 +5,8 @@ import re
 from urllib import parse
 import socket
 
+titles = "快来搜搜 V1.2\t   作者：Henry Xue\t  邮箱：kidfullystar@gmail.com" 
+
 def open_url(url):
     req = urllib.request.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36')
@@ -17,26 +19,29 @@ def get_magnet(html):
     name = r'<td class="name">([^<]+)'
     size = r'<td class="size">([^<]+)'
     date = r'<td class="date">([^<]+)'
-    content = ['BTC地址：1CyVcZERF5VACGsBwcB3hRVRLzu4WNjGSt\n','ETH地址：0x526dd5d1dc729b4ca6cf5707344dd6fdede7dae0\n','欢迎打赏！\n\n']
+    content = ['BTC地址：13Hh3qQCKNk1M2XcS7XBJ5jAnozCpVNR3T\n','ETH & EOS地址：0x2cee6e0d082bb9daa2a82f7f5ea3150782802112\n','欢迎打赏！\n\n']
     result = re.findall(p,html)
     result_name = re.findall(name,html)
     result_size = re.findall(size, html)
     result_date = re.findall(date, html)
     for num, c in enumerate(result):
-        content.append('%d.  %s       %s       %s\t%s\n' % (num + 1,result_name[num],result_size[num],result_date[num],c))
-    g.textbox(msg="您查询的关键词对应的磁链如下（请用迅雷等下载软件进行下载，容量为种子大小）:",title="获取磁链V1.2\t   作者：Henry\t", text=content)
+        content.append('%d. 资源名：%s       种子大小：%s       资源时间：%s\n下载链接：\n%s\n' % (num + 1,result_name[num],result_size[num],result_date[num],c))
+    return content,result_name
 
 if __name__ == '__main__':
     while 1:
-        fh = g.enterbox(msg='请输入关键词： ',title="获取磁链V1.2\t   作者：Henry\t")
-        if fh == None :
+        words = g.enterbox(msg='请输入关键词（多个关键词请用空格分开）： ',title="快来搜搜 V1.2\t   作者：Henry Xue ")
+        if words == None :
             exit(1)
-        url = 'https://www.torrentkitty.tv/search/' + parse.quote(fh)+'/'
+        url = r'https://www.torrentkitty.tv/search/' + parse.quote(words)+ '//'
         try:
-            get_magnet(open_url(url))
-        except (socket.timeout,urllib.error.URLError):
-            g.textbox(msg='错误信息',title="获取磁链V1.2\t   作者：Henry\t", text='已超时，请重试！')
-        choices = g.ccbox(msg='是否需要继续查找',choices=('是','否'),title="获取磁链V1.2\t   作者：Henry\t",)
+            content,result_name = get_magnet(open_url(url))
+            if result_name[0] == 0:
+                raise IndexError
+            g.textbox(msg="您查询的关键词对应的下载链接如下（请将下载链接用Ctrl+C粘贴至迅雷等下载软件进行下载，容量为种子大小，非文件大小）:", title=titles, text=content)
+        except (socket.timeout,urllib.error.URLError,IndexError):
+            g.textbox(msg='错误信息',title=titles, text='您输入的关键词无法找到资源，请尝试其它关键词，谢谢！')
+        choices = g.ccbox(msg='是否需要继续查找',choices=('是','否'),title="快来搜搜 V1.2\t   作者：Henry Xue ")
         if choices: pass
         else:
             break
