@@ -24,7 +24,7 @@ def get_magnet(html):
     result_date = re.findall(date, html)
     for num, c in enumerate(result):
         content.append('%d.  %s       %s       %s\t%s\n' % (num + 1,result_name[num],result_size[num],result_date[num],c))
-    g.textbox(msg="您查询的关键词对应的磁链如下（请用迅雷等下载软件进行下载）:",title="获取磁链V1.2\t   作者：Henry\t", text=content)
+    g.textbox(msg="您查询的关键词对应的磁链如下（请用迅雷等下载软件进行下载，容量为种子大小）:",title="获取磁链V1.2\t   作者：Henry\t", text=content)
 
 if __name__ == '__main__':
     while 1:
