@@ -19,13 +19,13 @@ def get_magnet(html):
     name = r'<td class="name">([^<]+)'
     size = r'<td class="size">([^<]+)'
     date = r'<td class="date">([^<]+)'
-    content = ['BTC地址：13Hh3qQCKNk1M2XcS7XBJ5jAnozCpVNR3T\n','ETH & EOS地址：0x2cee6e0d082bb9daa2a82f7f5ea3150782802112\n','欢迎打赏！\n\n']
+    content = ['BTC地址：13Hh3qQCKNk1M2XcS7XBJ5jAnozCpVNR3T\n','ETH & EOS地址：0x2cee6e0d082bb9daa2a82f7f5ea3150782802112\n','欢迎打赏！\n']
     result = re.findall(p,html)
     result_name = re.findall(name,html)
     result_size = re.findall(size, html)
     result_date = re.findall(date, html)
     for num, c in enumerate(result):
-        content.append('%d. 资源名：%s       种子大小：%s       资源时间：%s\n下载链接：\n%s\n' % (num + 1,result_name[num],result_size[num],result_date[num],c))
+        content.append('\n%d. 资源名：%s       种子大小：%s       资源时间：%s\n下载链接：\n%s\n' % (num + 1,result_name[num],result_size[num],result_date[num],c))
     return content,result_name
 
 if __name__ == '__main__':
