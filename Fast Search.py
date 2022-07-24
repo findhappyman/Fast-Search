@@ -14,13 +14,13 @@ def open_url(url):
     scraper = cloudscraper.create_scraper()
 
     resp = scraper.get(url).text
-    print(scraper.get(url).text)
+    # print(scraper.get(url).text)
     html = BeautifulSoup(resp, "lxml")
 
-    #req = urllib.request.Request(url)
-    #req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36')
-    #response = urllib.request.urlopen(req,timeout=20)
-    #html = response.read().decode('utf-8')
+    # req = urllib.request.Request(url)
+    # req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36')
+    # response = urllib.request.urlopen(req,timeout=20)
+    # html = response.read().decode('utf-8')
     return html
 
 def get_magnet(html):
@@ -28,7 +28,7 @@ def get_magnet(html):
     name = r'<td class="name">([^<]+)'
     size = r'<td class="size">([^<]+)'
     date = r'<td class="date">([^<]+)'
-    content = ['BTC地址：13Hh3qQCKNk1M2XcS7XBJ5jAnozCpVNR3T\n','ETH & EOS地址：0x2cee6e0d082bb9daa2a82f7f5ea3150782802112\n','欢迎打赏！\n']
+    content = ['ETH & EOS地址：0xb854bef8c9357c137e60a295dc6b4705e2f68171\n','欢迎打赏！\n']
     result = re.findall(p,str(html))
     result_name = re.findall(name,str(html))
     result_size = re.findall(size, str(html))
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         words = g.enterbox(msg='请输入关键词（多个关键词请用空格分开）： ',title="快来搜搜 V1.2\t   作者：Henry Xue ")
         if words == None :
             exit(1)
-        url = r'https://www.torrentkitty.tv/search/' + parse.quote(words)+ '//'
+        url = r'https://torkitty.com/search/' + parse.quote(words)+ '//'
         try:
             content,result_name = get_magnet(open_url(url))
             if result_name[0] == 0:
