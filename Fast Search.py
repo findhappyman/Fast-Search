@@ -13,13 +13,7 @@ def open_url(url):
     scraper = cloudscraper.create_scraper()
 
     resp = scraper.get(url).text
-    # print(scraper.get(url).text)
     html = BeautifulSoup(resp, "lxml")
-
-    # req = urllib.request.Request(url)
-    # req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36')
-    # response = urllib.request.urlopen(req,timeout=20)
-    # html = response.read().decode('utf-8')
     return html
 
 def get_magnet(html):
