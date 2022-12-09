@@ -28,7 +28,7 @@ def get_magnet(html):
     name = r'<td class="name">([^<]+)'
     size = r'<td class="size">([^<]+)'
     date = r'<td class="date">([^<]+)'
-    content = ['ETH & EOS地址：0xb854bef8c9357c137e60a295dc6b4705e2f68171\n','欢迎打赏！\n']
+    content = ['ETH 地址：0x00011D3a9091F8e317f1ff3d5DcEEf5dEf77a661\n','欢迎打赏！\n']
     result = re.findall(p,str(html))
     result_name = re.findall(name,str(html))
     result_size = re.findall(size, str(html))
