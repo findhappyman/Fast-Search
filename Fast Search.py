@@ -40,7 +40,7 @@ if __name__ == '__main__':
             content,result_name = get_magnet(open_url(url))
             if result_name[0] == 0:
                 raise IndexError
-            g.textbox(msg="您查询的关键词对应的下载链接如下（请将下载链接用Ctrl+C粘贴至Free Download Manager等下载软件进行下载，容量为种子大小，非文件大小）:", title=titles, text=content)
+            g.textbox(msg="您查询的关键词对应的下载链接如下（请将下载链接用Ctrl+C粘贴至下载软件进行下载，容量为种子大小，非文件大小）:", title=titles, text=content)
         except (socket.timeout,urllib.error.URLError,IndexError):
             g.textbox(msg='错误信息',title=titles, text='您输入的关键词无法找到资源，请尝试其它关键词，谢谢！')
         choices = g.ccbox(msg='是否需要继续查找',choices=('是','否'),title="快来搜搜 V1.2\t   作者：Henry Xue ")
