@@ -11,7 +11,6 @@ titles = "快来搜搜 V1.2\t   作者：Henry Xue\t  邮箱：kidfullystar@gmai
 
 def open_url(url):
     scraper = cloudscraper.create_scraper()
-
     resp = scraper.get(url).text
     html = BeautifulSoup(resp, "lxml")
     return html
