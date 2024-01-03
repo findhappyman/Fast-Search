@@ -6,6 +6,7 @@ from urllib import parse
 import socket
 from bs4 import BeautifulSoup
 import cloudscraper
+import lxml
 
 titles = "快来搜搜 V1.2\t   作者：Henry Xue\t  邮箱：kidfullystar@gmail.com" 
 
