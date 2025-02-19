@@ -5,11 +5,7 @@ import re
 from urllib import parse
 import cloudscraper
 from bs4 import BeautifulSoup
-import threading
-from functools import lru_cache
-import time
 from queue import Queue
-import pyperclip
 
 # Constants
 TITLE = "快来搜搜 Fast Search V3   作者：Henry   邮箱：findhappyman@gmail.com"
