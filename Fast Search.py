@@ -5,7 +5,7 @@ import re
 from urllib import parse
 import cloudscraper
 from bs4 import BeautifulSoup
-from queue import Queue
+from queue import Queue, Empty
 
 # Constants
 TITLE = "快来搜搜 Fast Search V3   作者：Henry   邮箱：findhappyman@gmail.com"
@@ -451,6 +451,26 @@ class Application(tk.Tk):
         
         # 重新加载前20条
         self.load_more_results()
+        
+    def check_queue(self):
+        """Check the queue for any pending messages and update the UI accordingly"""
+        try:
+            while True:
+                # Try to get a message from the queue without blocking
+                message = self.queue.get_nowait()
+                if isinstance(message, dict):
+                    if message.get('type') == 'progress':
+                        self.progress_label.config(text=message.get('text', ''))
+                    elif message.get('type') == 'results':
+                        self.all_results.extend(message.get('results', []))
+                        self.magnets.extend(message.get('magnets', []))
+                        self.display_results()
+                self.queue.task_done()
+        except Empty:
+            pass
+        finally:
+            # Schedule the next queue check
+            self.after(100, self.check_queue)
         
 # Main entry point
 def main():
